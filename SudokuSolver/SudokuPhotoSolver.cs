@@ -22,6 +22,10 @@ namespace SudokuSolver
             thresholdedImage.Save(@"D:\k\trash\thresholdedImage.jpg");
 
 
+            //todo del
+            //ImageTransformation.Test(transformedImage).Save(@"D:\k\trash\abc.jpg");
+
+
             //TODO: Threshold will probably be needed for noisy images
             //var thresholdFilter = new Threshold(100);
             //thresholdFilter.ApplyInPlace(image);

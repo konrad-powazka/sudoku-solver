@@ -139,6 +139,14 @@ namespace SudokuSolver
             //return bitmap.Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), PixelFormat.Format8bppIndexed);
         }
 
+        private static List<IntPoint> Corners { get; set; }
+
+        public static Bitmap Test(Bitmap bitmap)
+        {
+            BackwardQuadrilateralTransformation transformation = new BackwardQuadrilateralTransformation(bitmap, Corners);
+            return transformation.Apply(bitmap);
+        }
+
         public static Bitmap PerformThresholding(Bitmap bitmap, int value = 100)
         {
             using (Bitmap grayscaleBitmap = ImageTransformation.ConvertToGreyscale(bitmap))
@@ -189,6 +197,7 @@ namespace SudokuSolver
             QuadrilateralTransformation quadrilateralTransformation
                 = new QuadrilateralTransformation(corners, boundingSquareSideLength, boundingSquareSideLength);
 
+            Corners = corners;
             return quadrilateralTransformation.Apply(image);
         }
 
