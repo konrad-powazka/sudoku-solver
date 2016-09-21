@@ -54,7 +54,7 @@ namespace SudokuSolver
                 using (var mergedDigitsImagePix = PixConverter.ToPix(mergedDigitsImage))
                 using (var page = _engine.Process(mergedDigitsImagePix, PageSegMode.SingleWord))
                 {
-                    mergedDigitsImagePix.Save(@"D:\k\trash\mergedDigitsImagePix.jpg");
+                    //mergedDigitsImagePix.Save(@"D:\k\trash\mergedDigitsImagePix.jpg");
                     var text = page.GetText();//.Replace(" ","");
                     //return text.Trim().Select(c => int.Parse(c.ToString())).ToList();
 
