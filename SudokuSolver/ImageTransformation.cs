@@ -143,7 +143,7 @@ namespace SudokuSolver
         {
             using (Bitmap grayscaleBitmap = ImageTransformation.ConvertToGreyscale(bitmap))
             {
-                grayscaleBitmap.Save(@"D:\k\trash\grayscaleBitmap.jpg");
+                //grayscaleBitmap.Save(@"D:\k\trash\grayscaleBitmap.jpg");
                 if (grayscaleBitmap.PixelFormat == PixelFormat.Format16bppGrayScale)
                     value *= 255;
 
@@ -161,12 +161,12 @@ namespace SudokuSolver
                 DifferenceEdgeDetector detector = new DifferenceEdgeDetector();
                 detector.ApplyInPlace(grayscaleBitmap);
 
-                grayscaleBitmap.Save(@"D:\k\trash\workingBitmap.jpg");
+                //grayscaleBitmap.Save(@"D:\k\trash\workingBitmap.jpg");
 
                 //todo: threshold value
                 new Threshold(20).ApplyInPlace(grayscaleBitmap);
 
-                grayscaleBitmap.Save(@"D:\k\trash\workingBitmapAfterThreshold.jpg");
+                //grayscaleBitmap.Save(@"D:\k\trash\workingBitmapAfterThreshold.jpg");
 
                 QuadrilateralFinder quadrilateralFinder = new QuadrilateralFinder();
                 corners = quadrilateralFinder.ProcessImage(grayscaleBitmap);

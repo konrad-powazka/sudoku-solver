@@ -16,10 +16,10 @@ namespace SudokuSolver
         public Bitmap SolveSudokuPhoto(Bitmap sudokuPhoto)
         {
             Bitmap transformedImage = ImageTransformation.TranformImage(sudokuPhoto);
-            transformedImage.Save(@"D:\k\trash\transformedImage.jpg");
+            //transformedImage.Save(@"D:\k\trash\transformedImage.jpg");
 
             Bitmap thresholdedImage = ImageTransformation.PerformThresholding(transformedImage);
-            thresholdedImage.Save(@"D:\k\trash\thresholdedImage.jpg");
+            //thresholdedImage.Save(@"D:\k\trash\thresholdedImage.jpg");
 
 
             //TODO: Threshold will probably be needed for noisy images
@@ -28,7 +28,7 @@ namespace SudokuSolver
             var invertFilter = new Invert();
             var invertedImage = invertFilter.Apply(thresholdedImage);
 
-            invertedImage.Save(@"D:\k\trash\invertedInput.jpg");
+            //invertedImage.Save(@"D:\k\trash\invertedInput.jpg");
 
 
             var blobCounter = new BlobCounter
