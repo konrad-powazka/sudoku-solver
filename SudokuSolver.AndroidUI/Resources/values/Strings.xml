@@ -3,4 +3,6 @@
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">SudokuSolver.AndroidUI</string>
   <string name="TakeSudokuBoardPicture">Take a picture</string>
+  <string name="openCamera">Open Camera</string>
+  <string name="app_name">CameraAppDemo</string>
 </resources>
