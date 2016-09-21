@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace SudokuSolver.DesktopUI
         public Form1()
         {
             InitializeComponent();
+            openFileDialog1.InitialDirectory = Path.GetFullPath(@"..\..\..\TestImages");
         }
 
         private void button1_Click(object sender, EventArgs e)
