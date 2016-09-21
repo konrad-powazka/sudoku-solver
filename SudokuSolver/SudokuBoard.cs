@@ -331,7 +331,7 @@ namespace SudokuSolver
                     }
 
                     var number = this[rowIndex, colIndex];
-                    sb.Append(number);
+                    sb.Append(number?.ToString() ?? " ");
                 }
 
                 sb.Append("|");
