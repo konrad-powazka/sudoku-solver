@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SudokuSolver
+namespace SudokuSolver.DesktopUI
 {
     //First push
     static class Program
