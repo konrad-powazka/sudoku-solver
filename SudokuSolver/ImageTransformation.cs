@@ -134,6 +134,11 @@ namespace SudokuSolver
         public static Bitmap ConvertToGreyscale(Bitmap bitmap)
         {
             Grayscale grayscale = new Grayscale(0.2125, 0.7154, 0.0721);
+            if (bitmap.PixelFormat == PixelFormat.Format8bppIndexed)
+            {
+                return (Bitmap) (bitmap.Clone());
+            }
+
             return grayscale.Apply(bitmap);
 
             //return bitmap.Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), PixelFormat.Format8bppIndexed);
