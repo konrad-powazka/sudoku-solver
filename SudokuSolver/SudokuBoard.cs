@@ -123,7 +123,13 @@ namespace SudokuSolver
         // TODO: immutable
         public SudokuBoard Solve()
         {
-            if (!IsValid())
+            var clonedBoard = Clone();
+            return SolveInternal(clonedBoard);
+        }
+
+        public static SudokuBoard SolveInternal(SudokuBoard sudokuBoard)
+        {
+            if (!sudokuBoard.IsValid())
             {
                 return null;
             }
@@ -132,7 +138,7 @@ namespace SudokuSolver
                 .SelectMany(
                     vni =>
                         Enumerable.Range(0, NumberOfBoardCellsInSingleDirection)
-                            .Select(hni => new Cell(hni, vni, _numbers))).ToList();
+                            .Select(hni => new Cell(hni, vni, sudokuBoard._numbers))).ToList();
 
             Debug.Assert(cells.Count == NumberOfBoardCellsInSingleDirection*NumberOfBoardCellsInSingleDirection);
 
@@ -195,7 +201,7 @@ namespace SudokuSolver
 
                 if (currentCellToProcess == null)
                 {
-                    return this;
+                    return sudokuBoard;
                 }
 
                 Debug.Assert(!currentCellToProcess.Number.HasValue);
@@ -230,11 +236,10 @@ namespace SudokuSolver
                     cellsToProcess.Remove(currentCellToProcessBacktrackingInfo.Cell);
                     break;
                 } while (true);
-
             }
         }
 
-        private IReadOnlyCollection<int> GetCellPossibleValues(Cell cell,
+        private static IReadOnlyCollection<int> GetCellPossibleValues(Cell cell,
             IReadOnlyCollection<SolutionRegion> cellSolutionRegions)
         {
             if (cell.Number.HasValue)
