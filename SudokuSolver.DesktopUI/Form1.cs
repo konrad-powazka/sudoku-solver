@@ -29,8 +29,21 @@ namespace SudokuSolver.DesktopUI
             using (var fileStream = openFileDialog1.OpenFile())
             using (var image = new Bitmap(fileStream))
             {
+                //ImageTransformation transformation = new ImageTransformation();
+
+                //Bitmap grayscaleBitmap = ImageTransformation.ConvertToGreyscale(image);
+
+                //grayscaleBitmap.Save(@"D:\k\trash\grayscaleBitmap.jpg");
+
+
+                Bitmap transformedImage = ImageTransformation.TranformImage(image);
+                transformedImage.Save(@"D:\k\trash\transformedImage.jpg");
+
+                Bitmap thresholdedImage = ImageTransformation.PerformThresholding(transformedImage);
+                thresholdedImage.Save(@"D:\k\trash\thresholdedImage.jpg");
+
                 var solver = new SudokuPhotoSolver();
-                var solution = solver.SolveSudokuPhoto(image);
+                var solution = solver.SolveSudokuPhoto(thresholdedImage, thresholdedImage);
                 var message = solution?.ToString() ?? "Solving failed";
 
                 MessageBox.Show(message);

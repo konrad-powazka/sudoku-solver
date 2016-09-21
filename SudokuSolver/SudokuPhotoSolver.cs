@@ -10,16 +10,24 @@ namespace SudokuSolver
 {
     public class SudokuPhotoSolver
     {
-        public SudokuBoard SolveSudokuPhoto(Bitmap sudokuPhoto)
+        public SudokuBoard SolveSudokuPhoto(Bitmap sudokuPhoto, Bitmap thresholdedImage)
         {
-            var image = sudokuPhoto;
             //TODO: Threshold will probably be needed for noisy images
             //var thresholdFilter = new Threshold(100);
             //thresholdFilter.ApplyInPlace(image);
             var invertFilter = new Invert();
-            var invertedImage = invertFilter.Apply(image);
-            var blobCounter = new BlobCounter {BackgroundThreshold = Color.FromArgb(255, 70, 70, 70)};
+            var invertedImage = invertFilter.Apply(thresholdedImage);
+
+            invertedImage.Save(@"D:\k\trash\invertedInput.jpg");
+
+
+            var blobCounter = new BlobCounter
+                                  {
+                                      BackgroundThreshold = Color.FromArgb(255, 70, 70, 70)
+                                  };
+
             blobCounter.ProcessImage(invertedImage);
+
             var invertedImageBlobs = blobCounter.GetObjectsInformation();
             var boardBlobCandidates = invertedImageBlobs;
             var biggestBoardBlobCandidate = boardBlobCandidates.OrderByDescending(b => b.Area).First();
@@ -33,10 +41,9 @@ namespace SudokuSolver
 
             var blobCellSizeTolerance = 0.25;
 
-            blobCounter.ProcessImage(image);
+            blobCounter.ProcessImage(thresholdedImage);
 
-            var cellBlobCandidates =
-                blobCounter.GetObjectsInformation();
+            var cellBlobCandidates = blobCounter.GetObjectsInformation();
 
             var cellBlobs = cellBlobCandidates.Where(
                 b =>
@@ -72,6 +79,7 @@ namespace SudokuSolver
             var parsedDigitIndexToCellBlobMap = new Dictionary<int, Blob>();
             var lastParsedDigitIndex = 0;
 
+            int idx = 0;
             foreach (var cellBlob in cellBlobs)
             {
                 // TODO: There may be more than one blob candidate
@@ -82,7 +90,13 @@ namespace SudokuSolver
                     continue;
                 }
 
-                var digitImage = image.Clone(digitBlob.Rectangle, image.PixelFormat);
+                //todo
+                var digitImage = sudokuPhoto.Clone(digitBlob.Rectangle, sudokuPhoto.PixelFormat);
+                var expectedCellData = expectedCellsData.Single(d => cellBlob.Rectangle.Contains(d.ExpectedCellCenter));
+
+                digitImage.Save(@"D:\k\Trash\Board\blob"+ (expectedCellData.CellHorizontalIndex +1) + (expectedCellData.CellVerticalIndex +1) + ".jpg");
+
+
                 digitImages.Add(digitImage);
                 parsedDigitIndexToCellBlobMap[lastParsedDigitIndex++] = cellBlob;
             }

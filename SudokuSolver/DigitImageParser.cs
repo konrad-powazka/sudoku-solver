@@ -46,7 +46,7 @@ namespace SudokuSolver
 
                     foreach (var digitImage in digitImages)
                     {
-                        mergedDigitsImageGraphics.DrawImage(digitImage, new Point(currentDigitImageLeftOffset, 0));
+                        mergedDigitsImageGraphics.DrawImage(digitImage,new Rectangle(new Point(currentDigitImageLeftOffset, 0), digitImage.Size));
                         currentDigitImageLeftOffset += digitImage.Width + mergedDigitsSpacing;
                     }
                 }
@@ -54,8 +54,29 @@ namespace SudokuSolver
                 using (var mergedDigitsImagePix = PixConverter.ToPix(mergedDigitsImage))
                 using (var page = _engine.Process(mergedDigitsImagePix, PageSegMode.SingleWord))
                 {
-                    var text = page.GetText();
-                    return text.Trim().Select(c => int.Parse(c.ToString())).ToList();
+                    mergedDigitsImagePix.Save(@"D:\k\trash\mergedDigitsImagePix.jpg");
+                    var text = page.GetText();//.Replace(" ","");
+                    //return text.Trim().Select(c => int.Parse(c.ToString())).ToList();
+
+                    int invalidDigitCount = 0;
+                    var result = text.Trim().Select(c =>
+                                                                     {
+                                                                         int value;
+                                                                         if (!int.TryParse(c.ToString(), out value))
+                                                                         {
+                                                                             invalidDigitCount++;
+                                                                         }
+
+                                                                         return value;
+                                                                         //return int.Parse(c.ToString());
+                                                                     }).ToList();
+
+                    if (invalidDigitCount > 0)
+                        throw new ApplicationException("Parsing failed.");
+
+                    return result;
+
+
                 }
             }
         }
