@@ -15,6 +15,13 @@ namespace SudokuSolver
     {
         public Bitmap SolveSudokuPhoto(Bitmap sudokuPhoto)
         {
+            Bitmap transformedImage = ImageTransformation.TranformImage(sudokuPhoto);
+            transformedImage.Save(@"D:\k\trash\transformedImage.jpg");
+
+            Bitmap thresholdedImage = ImageTransformation.PerformThresholding(transformedImage);
+            thresholdedImage.Save(@"D:\k\trash\thresholdedImage.jpg");
+
+
             //TODO: Threshold will probably be needed for noisy images
             //var thresholdFilter = new Threshold(100);
             //thresholdFilter.ApplyInPlace(image);
@@ -45,6 +52,9 @@ namespace SudokuSolver
             var blobCellSizeTolerance = 0.25;
 
             blobCounter.ProcessImage(thresholdedImage);
+
+            //todo
+            thresholdedImage = transformedImage;
 
             var cellBlobCandidates = blobCounter.GetObjectsInformation();
 
@@ -88,7 +98,7 @@ namespace SudokuSolver
                     continue;
                 }
 
-                var digitImage = image.Clone(digitBlob.Rectangle, image.PixelFormat);
+                var digitImage = thresholdedImage.Clone(digitBlob.Rectangle, thresholdedImage.PixelFormat);
                 digitImages.Add(digitImage);
                 parsedDigitIndexToCellBlobMap[lastParsedDigitIndex++] = cellBlob;
             }
@@ -158,7 +168,7 @@ namespace SudokuSolver
                                         return new Cell(i.HorizontalIndex, i.VerticalIndex, cellBlob.Rectangle);
                                     }).ToList();
 
-            var solutionPhoto = PrintSolutionToSourceImage(image, cellsToPrint, solvedBoard);
+            var solutionPhoto = PrintSolutionToSourceImage(thresholdedImage, cellsToPrint, solvedBoard);
             return solutionPhoto;
         }
 
