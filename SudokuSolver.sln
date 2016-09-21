@@ -5,6 +5,22 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver", "SudokuSolver\SudokuSolver.csproj", "{9D5B42D9-820B-470E-8DD4-499B84750749}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver.DesktopUI", "SudokuSolver.DesktopUI\SudokuSolver.DesktopUI.csproj", "{8E8BF4B9-0820-468D-B11E-25A413A41DE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestImages", "TestImages", "{5446F78B-3B87-41F4-BE1E-F45A06F25212}"
+	ProjectSection(SolutionItems) = preProject
+		TestImages\1024 8bit with padding.bmp = TestImages\1024 8bit with padding.bmp
+		TestImages\1024 8bit.bmp = TestImages\1024 8bit.bmp
+		TestImages\1024.png = TestImages\1024.png
+		TestImages\1024bw.bmp = TestImages\1024bw.bmp
+		TestImages\2000px-Sudoku-by-L2G-20050714.svg.png = TestImages\2000px-Sudoku-by-L2G-20050714.svg.png
+		TestImages\4.png = TestImages\4.png
+		TestImages\49.png = TestImages\49.png
+		TestImages\OCR-B-Digits.png = TestImages\OCR-B-Digits.png
+		TestImages\solvedgraylarge.bmp = TestImages\solvedgraylarge.bmp
+		TestImages\sudoku.png = TestImages\sudoku.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +31,10 @@ Global
 		{9D5B42D9-820B-470E-8DD4-499B84750749}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D5B42D9-820B-470E-8DD4-499B84750749}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D5B42D9-820B-470E-8DD4-499B84750749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E8BF4B9-0820-468D-B11E-25A413A41DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E8BF4B9-0820-468D-B11E-25A413A41DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E8BF4B9-0820-468D-B11E-25A413A41DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E8BF4B9-0820-468D-B11E-25A413A41DE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
