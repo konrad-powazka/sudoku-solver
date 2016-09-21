@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,40 +14,54 @@ namespace SudokuSolver.DesktopUI
 {
     public partial class Form1 : Form
     {
+        private Bitmap _sourceSudokuBitmap;
+        private Bitmap _solvedSudokuBitmap;
+
         public Form1()
         {
             InitializeComponent();
             openFileDialog1.InitialDirectory = Path.GetFullPath(@"..\..\..\TestImages");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void loadSourceImageButton_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
 
-            using (var fileStream = openFileDialog1.OpenFile())
-            using (var image = new Bitmap(fileStream))
+            var fileStream = openFileDialog1.OpenFile();
+            var previousSourceSudokuBitmap = _sourceSudokuBitmap;
+            _sourceSudokuBitmap = new Bitmap(fileStream);
+            sourceImagePictureBox.Image = _sourceSudokuBitmap;
+            solveButton.Enabled = true;
+            previousSourceSudokuBitmap?.Dispose();
+        }
+
+        private void solveButton_Click(object sender, EventArgs e)
+        {
+            solvedImagePictureBox.Image = null;
+            _solvedSudokuBitmap?.Dispose();
+            var solver = new SudokuPhotoSolver();
+            Bitmap solvedSudokuBitmap = null;
+
+            try
             {
-                //ImageTransformation transformation = new ImageTransformation();
+                solvedSudokuBitmap = solver.SolveSudokuPhoto(_sourceSudokuBitmap);
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.ToString());
+            }
 
-                //Bitmap grayscaleBitmap = ImageTransformation.ConvertToGreyscale(image);
-
-                //grayscaleBitmap.Save(@"D:\k\trash\grayscaleBitmap.jpg");
-
-
-                Bitmap transformedImage = ImageTransformation.TranformImage(image);
-                transformedImage.Save(@"D:\k\trash\transformedImage.jpg");
-
-                Bitmap thresholdedImage = ImageTransformation.PerformThresholding(transformedImage);
-                thresholdedImage.Save(@"D:\k\trash\thresholdedImage.jpg");
-
-                var solver = new SudokuPhotoSolver();
-                var solution = solver.SolveSudokuPhoto(thresholdedImage, thresholdedImage);
-                var message = solution?.ToString() ?? "Solving failed";
-
-                MessageBox.Show(message);
+            if (solvedSudokuBitmap != null)
+            {
+                _solvedSudokuBitmap = solvedSudokuBitmap;
+                solvedImagePictureBox.Image = _solvedSudokuBitmap;
+            }
+            else
+            {
+                MessageBox.Show("Solving failed");
             }
         }
     }

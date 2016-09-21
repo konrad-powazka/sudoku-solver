@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SudokuSolver\SudokuSolver.csproj">
-      <Project>{9D5B42D9-820B-470E-8DD4-499B84750749}</Project>
+      <Project>{9d5b42d9-820b-470e-8dd4-499b84750749}</Project>
       <Name>SudokuSolver</Name>
     </ProjectReference>
   </ItemGroup>
