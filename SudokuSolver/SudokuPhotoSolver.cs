@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -122,6 +123,8 @@ namespace SudokuSolver
                 return null;
             }
 
+            Debug.Assert(solvedBoard.IsComplete() && solvedBoard.IsValid());
+
             var cellsToPrint = Enumerable.Range(0, SudokuBoard.NumberOfBoardCellsInSingleDirection)
                     .SelectMany(
                         vi =>
@@ -174,13 +177,15 @@ namespace SudokuSolver
 
                 foreach (var cell in cellsToPrint)
                 {
-                    var borderRatio = 0.2;
+                    var borderRatio = 0.1;
                     var horizontalBorderWidth = (int)(cell.Rectangle.Width*borderRatio);
                     var verticalBorderWidth = (int)(cell.Rectangle.Height*borderRatio);
 
-                    var rectangle = new Rectangle(cell.Rectangle.X + horizontalBorderWidth,
-                        cell.Rectangle.Y + verticalBorderWidth, cell.Rectangle.Width - horizontalBorderWidth,
-                        cell.Rectangle.Height - verticalBorderWidth);
+                    var rectangle = new Rectangle(
+                        cell.Rectangle.X + horizontalBorderWidth,
+                        cell.Rectangle.Y + verticalBorderWidth, 
+                        cell.Rectangle.Width - 2*horizontalBorderWidth,
+                        cell.Rectangle.Height - 2*verticalBorderWidth);
 
                     var cellValue = solvedBoard[cell.HorizontalIndex, cell.VerticalIndex];
 

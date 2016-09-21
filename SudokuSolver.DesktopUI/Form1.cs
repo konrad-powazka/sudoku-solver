@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -42,7 +43,16 @@ namespace SudokuSolver.DesktopUI
             solvedImagePictureBox.Image = null;
             _solvedSudokuBitmap?.Dispose();
             var solver = new SudokuPhotoSolver();
-            var solvedSudokuBitmap = solver.SolveSudokuPhoto(_sourceSudokuBitmap);
+            Bitmap solvedSudokuBitmap = null;
+
+            try
+            {
+                solvedSudokuBitmap = solver.SolveSudokuPhoto(_sourceSudokuBitmap);
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.ToString());
+            }
 
             if (solvedSudokuBitmap != null)
             {
