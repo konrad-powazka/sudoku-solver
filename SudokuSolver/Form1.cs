@@ -17,26 +17,6 @@ namespace SudokuSolver
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
-
-            var tesseractLanguageDataPath = Path.Combine(Directory.GetCurrentDirectory(),
-                "tessdata");
-
-            using (var fileStream = openFileDialog1.OpenFile())
-            using (var engine = new TesseractEngine(tesseractLanguageDataPath, "eng", EngineMode.Default))
-            using (var image = new Bitmap(fileStream))
-            using (var pix = PixConverter.ToPix(image))
-            using (var page = engine.Process(pix, PageSegMode.SingleChar))
-            {
-                label1.Text = page.GetText();
-            }
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
